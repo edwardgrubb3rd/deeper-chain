@@ -90,7 +90,7 @@ pub use pallet_staking::StakerStatus;
 pub use sp_runtime::BuildStorage;
 
 use pallet_ethereum::{Call::transact, Transaction as EthereumTransaction};
-use pallet_evm::{Account as EVMAccount, EnsureAddressTruncated, HashedAddressMapping, Runner};
+use pallet_evm::{Account as EVMAccount, PairedAddressMapping, Runner};
 use fp_rpc::TransactionStatus;
 
 type AccountPublic = <Signature as Verify>::Signer;
@@ -1137,9 +1137,7 @@ impl pallet_evm::Config for Runtime {
     type FeeCalculator = pallet_dynamic_fee::Module<Self>;
     type GasWeightMapping = ();
     type BlockHashMapping = pallet_ethereum::EthereumBlockHashMapping<Self>;
-    type CallOrigin = EnsureAddressTruncated;
-    type WithdrawOrigin = EnsureAddressTruncated;
-    type AddressMapping = HashedAddressMapping<BlakeTwo256>;
+    type AddressMapping = PairedAddressMapping<Runtime>;
     type Currency = Balances;
     type Event = Event;
     type Runner = pallet_evm::runner::stack::Runner<Self>;
@@ -1219,7 +1217,7 @@ construct_runtime!(
         DeeperNode: pallet_deeper_node::{Module, Call, Storage, Event<T>, Config<T> },
         Bridge: pallet_eth_sub_bridge::{Module, Call, Storage, Event<T>, Config<T>},
         Ethereum: pallet_ethereum::{Module, Call, Storage, Event, Config, ValidateUnsigned},
-        EVM: pallet_evm::{Module, Config, Call, Storage, Event<T>},
+        EVM: pallet_evm::{Module, Config<T>, Call, Storage, Event<T>},
         DynamicFee: pallet_dynamic_fee::{Module, Call, Storage, Config, Inherent},
     }
 );

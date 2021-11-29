@@ -41,6 +41,7 @@ sp-io ={ default-features = false, git = "https://github.com/paritytech/substrat
 fp-rpc = { version = "2.0.0", default-features = false, path = "../frontier/primitives/rpc"}
 
 # frame dependencies
+libsecp256k1 = { version = "0.6", default-features = false, optional = true }
 frame-executive = { git = "https://github.com/paritytech/substrate", tag = "v3.0.0", default-features = false }
 frame-benchmarking = { git = "https://github.com/paritytech/substrate", tag = "v3.0.0", default-features = false, optional = true }
 frame-support = { git = "https://github.com/paritytech/substrate", tag = "v3.0.0", default-features = false }
@@ -178,6 +179,7 @@ std = [
 ]
 runtime-benchmarks = [
 	"frame-benchmarking",
+	"libsecp256k1/hmac",
 	"frame-support/runtime-benchmarks",
 	"frame-system/runtime-benchmarks",
 	"sp-runtime/runtime-benchmarks",

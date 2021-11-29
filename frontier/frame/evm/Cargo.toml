@@ -33,6 +33,7 @@ evm-gasometer = { version = "0.27.0", default-features = false }
 sha3 = { version = "0.8", default-features = false }
 log = { version = "0.4", default-features = false }
 hex = { version = "0.4", default-features = false }
+libsecp256k1 = { version = "0.6", default-features = false, features = ["hmac", "static-context"], optional = true }
 
 [features]
 default = ["std"]
@@ -58,7 +59,10 @@ std = [
 	"pallet-timestamp/std",
 	"log/std",
 	"hex/std",
+	"libsecp256k1",
+	"libsecp256k1/std",
 ]
 runtime-benchmarks = [
+	"libsecp256k1",
 	"frame-benchmarking",
 ]
